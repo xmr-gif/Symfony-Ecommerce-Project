@@ -1,0 +1,140 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ category.name }} - The Editorial Roast{% endblock %}
+
+{% block content %}
+<!-- Title Section -->
+<div class="mb-16 relative pt-12 max-w-7xl mx-auto px-8">
+    <div class="flex items-end gap-4">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface">{{ category.name }}</h1>
+        <div class="mb-2">
+            <span class="material-symbols-outlined text-primary text-4xl">coffee</span>
+        </div>
+    </div>
+    <p class="mt-4 text-on-surface-variant max-w-lg font-body leading-relaxed">
+        {{ category.description }}
+    </p>
+</div>
+
+<div class="flex flex-col md:flex-row gap-16 max-w-7xl mx-auto px-8 pb-24">
+    <!-- Filter Sidebar -->
+    <aside class="w-full md:w-64 flex-shrink-0">
+        <div class="sticky top-32 space-y-12">
+            <div>
+                <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Origin</h3>
+                <div class="space-y-4">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Ethiopia</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Colombia</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Guatemala</span>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Roast Level</h3>
+                <div class="space-y-4">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Light Roast</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Medium Roast</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Dark Roast</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Products Grid -->
+    <div class="flex-grow">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12">
+            <!-- Product Card 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    <img alt="Craft paper coffee bag" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1gFoQojz90Pb9_dySifnSnBv_A3BbIpWfME7jGYjyUuAueIY_uPhoLhvZX9FLIaZo8m2gE0m0AHSdPhY7eDG0sRDkhK1qZ8S1z60Gxia5FJXRaMvazYbFBe-Wzk_SW_gmKt3w9EG-A0lpJxO-ObGf53Q_97pCylVie1sonFJQDvuTCduzxNbLoeZhB8rQnHPDGl_zYPdHoRahq4UtlePe9Bw0_f-_nuhadAG-fYsgrU_7KpBBsfgsNOFQcYbpxINEXnVPPv1wbKGC"/>
+                    <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase text-primary">Single Origin</div>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">Yirgacheffe Bloom</h4>
+                    <p class="text-sm text-on-surface-variant font-body">Notes of jasmine, lemon, and peach</p>
+                    <div class="pt-2 text-lg font-bold text-primary">$24.00</div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    <img alt="Roasted coffee beans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJSlx14qovWV2EbvAY_YhMvHGozq5N5DhSNPjPdMEepUkUu4TJnwAfX_r4iTVAIwbokO7rZMZV6wBhTJTM_fcoHKusPMeGmwcdQg7cyWkLVc33gkvUmdq4tMPYLZIlhoKxlxqtUBffGSKvoQV9_vH2C7k2pRVXTO6l7XUsZeZpvEPII8FFdAAbEtYZTToDVYrn9_3NM0hZ3OpptZlv0Rgs6b4C6tm6b5m2A8jSkNJdfUM3VSC_ocTrkKI_C7z6f4aEKpyU1FRvvBfi"/>
+                    <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase text-primary">Limited Batch</div>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">Antigua Velvet</h4>
+                    <p class="text-sm text-on-surface-variant font-body">Milk chocolate, almond, and brown sugar</p>
+                    <div class="pt-2 text-lg font-bold text-primary">$22.00</div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    <img alt="White coffee packaging" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiDIi3dQKSe4yQfkc5zJ0gxDtiC-ZWV8Jn3DWHhNxWEduHNnndAh15VbhntVbT2swKCZzrd-sk7F3s3rpiRzdidNy05ofIZMsBv-88Lqd6i9j8aGHg0N4gsTSz_N_bK0mrtB6EvWgAiep2aRbOWXgUwt4n_k8SaZjTX2e9tiqDatDergPsBJ0niR0nre_ZTyozsTd397bjdcbfzFSxx9OGmJ8zpZZjT8L0MkuDX1NUdeqDi72fFnnQvCm4CmdXSrQLoPSxRcN5qyRG"/>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">Sumatra Dark Moon</h4>
+                    <p class="text-sm text-on-surface-variant font-body">Earthy, cedar, and dark chocolate</p>
+                    <div class="pt-2 text-lg font-bold text-primary">$26.00</div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    <img alt="Coffee preparation" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByA3p7EtxPanbipS7x5bd36Py4AUYSy2V5INPW1xDORqwyVKP_iKycq74XpwPrcyO96kMlgnyBlb4DgZOznYK9Ba4r9OIC_mppvB7BsHuQjTq8qfl3E5ka2hbhhCxS4Z0cFHu6NBnvIBlyW3nSG5xzjeMJ9OfdajsqdCyfEmxB3Iwl6QSTfjgzb9CfSwRN5TONrHq_eoyCvUOSgMUA1YdZ7_us17O0cFInAqmeQ8jt3VH8Oy2EvmjdJtBgoxruZpGeMuKRhYV7HG2z"/>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">Nariño Reserve</h4>
+                    <p class="text-sm text-on-surface-variant font-body">Balanced acidity with honey sweetness</p>
+                    <div class="pt-2 text-lg font-bold text-primary">$21.00</div>
+                </div>
+            </div>
+
+            <!-- Product Card 5 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    <img alt="Sack of beans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkmgelYubQOcnUaR6_iQMi7MJWaRIO0bfBVKbGBNKlXBHe2mMY03XdLWGWd2irVJjWe9X15JrR4gWtEXpqVRpkjBPcYVZkMRGSH67PStglfBSMsxKh-aY96Q5lFY53pH58k_0mDKQYasuzcxES6KqFDRrXFIPujxaLMlMJ93pP4k5QMZjazkRASnSGsWdMezAkOMJ9lRhQjR1uKhfaA0A34AvSvu5BE9TBgxPF9VIISnt-QvEkELWNj_3S6vs4-HHQ46STz1-hmpdE"/>
+                    <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase text-primary">Direct Trade</div>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">Cerrado Gold</h4>
+                    <p class="text-sm text-on-surface-variant font-body">Nutty profile with low acidity</p>
+                    <div class="pt-2 text-lg font-bold text-primary">$19.00</div>
+                </div>
+            </div>
+
+            <!-- Product Card 6 -->
+            <div class="group cursor-pointer">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    <img alt="Bag of beans" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVUW1f1-ZjN2dHluGzZOQ0kJiJX4tl9GnzBbr2vTZ3xu4KB980Lb2o3NO3irxOrJ3iN90-tR8TvQBXK80sb1EFUfoGUqm6x26P8z5IVqBPz8UvCMHsBGlpU7I6z9xLWeQ06vWuUBoZ-wIH2IPXMA4Yb8znICmGK4Uu6psiQjZ4VGFCRes4QeIZNq5zLY5ZXLOgkdimVvzTRKYLhC0nGyp64kfNi6kIrNDvxyTScrfjDmBGUmro3Sw85TrfiIXqKsSSby4jb8rVxhp5"/>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">Sidamo Sun</h4>
+                    <p class="text-sm text-on-surface-variant font-body">Fruity, bright, and wine-like</p>
+                    <div class="pt-2 text-lg font-bold text-primary">$25.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
