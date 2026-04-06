@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block title %}The Editorial Roast | Ethically Sourced, Intentionally Brewed{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative min-h-[870px] flex items-center overflow-hidden bg-background">
+    <div class="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
+        <div class="relative z-10 pl-0 lg:pl-12">
+            <p class="font-label text-xs uppercase label-archival text-primary font-bold mb-4">Volume I: The Spring Extraction</p>
+            <h1 class="font-headline text-6xl md:text-8xl font-extrabold text-on-surface editorial-lockup leading-[0.9] mb-8">
+                The art of the <br/> <span class="italic font-light">daily ledger.</span>
+            </h1>
+            <p class="font-body text-lg text-on-surface-variant max-w-md mb-10 leading-relaxed">
+                Curated single-origin beans and precision tools, meticulously documented for the intentional brewer.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="{{ path('app_browse_categories') }}" class="bg-primary-gradient text-on-primary px-8 py-4 rounded-md font-bold transition-transform active:scale-95">
+                    Shop the Collection
+                </a>
+                <button class="px-8 py-4 rounded-md font-bold text-on-surface border border-outline/30 hover:bg-surface-container transition-colors">
+                    Read Our Story
+                </button>
+            </div>
+        </div>
+        <div class="relative">
+            <!-- Hand-drawn Doodle Overlay -->
+            <div class="absolute -top-12 -left-12 w-48 h-48 z-20 opacity-90 pointer-events-none">
+                <img alt="" class="w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ5rkGJa7VuSQB6WKy0eXD8fgo06LqBsdLcehwxQg8nk3wpEn3bszHmi-yC3i4YDFw39T13kXuBAxfyc6bDNf1sb9mpiFeH_iIS_Dwcip0ZqBWs1BOVFvfj5nIynAYSL8nGUlxTB86qdVoAD7avAtcJPaut8tyKT1QVFL2J8f6nCKD_rsTZm7MDVHgfvEG9OK2IYbVzjU88diYwCAqNWXt5jzAJRckWl0SW72lS5Dg4gFFwHwTb0b5Ws1pouzZUhev6ItmWC8emfd7"/>
+            </div>
+            <div class="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700 bg-surface-container">
+                <img alt="Artisan coffee bar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzOtSWCLGcgFDvg3tS_tpToysHaPmxmzrhRPAHKOGBqsnadj-c49Pzy6guN6wyEk9NUyzMTJEDynps1QJ2VW5_3cRo-tskCrlxrzvqE_5StGS_OxWbHBptXmA_wiKB15WyQzjjLi4Tosi80Hc1u_OCAYCsWCGcOb8JYaxAVPxZ1uBeVTQhh3PB7I_qDJ0qP9fAksMhCg13Zi7jbOu_QK3bQ9E1YJiu0C5sXig__zzkPgWtOLhbIP1NRQxR20tjujtEpaw6xpp2Okg4"/>
+            </div>
+            <div class="absolute -bottom-8 -right-8 w-64 h-64 z-20 opacity-80 pointer-events-none hidden md:block">
+                <img alt="" class="w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1vElRcyIcrx2rFGqKs50DWmQ5dATiQsqx_Fiuwyi-BfCtEc_ga_NlH5cob5MOjLvP2osiXoxik_OAE0Z9SiEjvsKl58ss4hcpKaM2HbPki56qgiknlfq8KnE_ranQzydFTvdp_qYwozkupLO8DhATwvS8SN2qpgpl1xNfBpVNld8siCoxNeM2keYfsDNUaKIR5Fdo7dFO6ecrxKkgu89--De97BoyinpceQpTcoRUrBsh_dg8KSImzil4HzfUuKKnfVR5huRnO9o4"/>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Shop by Category -->
+<section class="py-24 bg-surface-container-low">
+    <div class="max-w-7xl mx-auto px-8">
+        <div class="mb-16 text-center">
+            <h2 class="font-headline text-4xl font-extrabold editorial-lockup text-on-surface">Curated Inventory</h2>
+            <p class="font-body text-on-surface-variant mt-2">Organized by brewing intent.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for category in categories %}
+            <a href="{{ path('app_products_by_category', {'slug': category.slug}) }}" class="group bg-surface-container p-10 rounded-xl transition-all hover:bg-surface-container-highest cursor-pointer flex flex-col items-center text-center">
+                <div class="w-20 h-20 mb-6 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-5xl text-primary">coffee</span>
+                </div>
+                <h3 class="font-headline text-xl font-bold text-on-surface mb-2">{{ category.name }}</h3>
+                <p class="font-body text-sm text-on-surface-variant">{{ category.description }}</p>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Items -->
+<section class="py-32 bg-background">
+    <div class="max-w-7xl mx-auto px-8">
+        <div class="flex justify-between items-end mb-16">
+            <div>
+                <h2 class="font-headline text-4xl font-extrabold editorial-lockup text-on-surface">The Ledger Highlights</h2>
+                <p class="font-body text-on-surface-variant mt-2">Ethically sourced, intentionally selected.</p>
+            </div>
+            <a class="font-label text-sm font-bold text-primary border-b-2 border-primary-container pb-1 mb-2 hover:text-primary-dim transition-colors" href="{{ path('app_browse_categories') }}">VIEW ALL PRODUCTS</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
