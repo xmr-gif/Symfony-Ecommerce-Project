@@ -55,9 +55,4 @@ class EcommerceController extends AbstractController
         ]);
     }
 
-    #[Route('/cart', name: 'app_cart')]
-    public function cart(): Response
-    {
-        return $this->render('ecommerce/cart.html.twig');
-    }
 }

@@ -14,12 +14,18 @@ class ShopController extends AbstractController
     }
 
     #[Route('/shop', name: 'app_shop')]
-    public function index(): Response
+    public function index(\Symfony\Component\HttpFoundation\Request $request): Response
     {
-        $products = $this->productRepository->findAllInStock();
+        $filters = [
+            'origin' => $request->query->get('origin'),
+            'roastLevel' => $request->query->get('roastLevel'),
+        ];
+
+        $products = $this->productRepository->findByFilters($filters);
 
         return $this->render('shop/index.html.twig', [
             'products' => $products,
+            'currentFilters' => $filters,
         ]);
     }
 

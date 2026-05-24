@@ -66,4 +66,29 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param array<string, string> $filters
+     * @return Product[]
+     */
+    public function findByFilters(array $filters): array
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.inStock = :inStock')
+            ->setParameter('inStock', true);
+
+        if (!empty($filters['origin'])) {
+            $qb->andWhere('p.origin = :origin')
+               ->setParameter('origin', $filters['origin']);
+        }
+
+        if (!empty($filters['roastLevel'])) {
+            $qb->andWhere('p.roastLevel = :roastLevel')
+               ->setParameter('roastLevel', $filters['roastLevel']);
+        }
+
+        return $qb->orderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
