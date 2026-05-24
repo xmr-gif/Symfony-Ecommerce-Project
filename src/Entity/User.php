@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,16 +37,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $address = null;
+    /** @var Collection<int, Address> */
+    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $addresses;
 
-
+    /** @var Collection<int, PaymentCard> */
+    #[ORM\OneToMany(targetEntity: PaymentCard::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $paymentCards;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     public function __construct()
     {
+        $this->addresses = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->paymentCards = new \Doctrine\Common\Collections\ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
 
@@ -162,14 +168,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAddress(): ?string
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAddresses(): Collection
     {
-        return $this->address;
+        return $this->addresses;
     }
 
-    public function setAddress(?string $address): static
+    public function addAddress(Address $address): static
     {
-        $this->address = $address;
+        if (!$this->addresses->contains($address)) {
+            $this->addresses->add($address);
+            $address->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): static
+    {
+        if ($this->addresses->removeElement($address)) {
+            if ($address->getUser() === $this) {
+                $address->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PaymentCard>
+     */
+    public function getPaymentCards(): Collection
+    {
+        return $this->paymentCards;
+    }
+
+    public function addPaymentCard(PaymentCard $paymentCard): static
+    {
+        if (!$this->paymentCards->contains($paymentCard)) {
+            $this->paymentCards->add($paymentCard);
+            $paymentCard->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaymentCard(PaymentCard $paymentCard): static
+    {
+        if ($this->paymentCards->removeElement($paymentCard)) {
+            if ($paymentCard->getUser() === $this) {
+                $paymentCard->setUser(null);
+            }
+        }
 
         return $this;
     }

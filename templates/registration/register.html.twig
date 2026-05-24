@@ -1,0 +1,78 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Register - The Editorial Roast{% endblock %}
+
+{% block content %}
+<section class="min-h-[85vh] bg-surface-container-low flex items-center justify-center py-20 px-8">
+    <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <!-- Left Side: Copy & Illustration -->
+        <div class="hidden md:block">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-4">Join The Club</p>
+            <h1 class="font-headline text-5xl lg:text-7xl font-extrabold text-on-surface tracking-tighter leading-[1.1] mb-8">
+                Your Coffee <br/>Journey Starts.
+            </h1>
+            <p class="font-body text-on-surface-variant max-w-sm mb-12 leading-relaxed">
+                Create an account to save your favorite roasts, manage your addresses, and review your past orders.
+            </p>
+            <!-- Decorative Element -->
+            <div class="relative w-80 h-80 bg-surface-container rounded-xl rotate-[3deg] shadow-lg flex items-center justify-center overflow-hidden">
+                <img alt="Coffee illustration" class="w-full h-full object-cover opacity-90" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1vElRcyIcrx2rFGqKs50DWmQ5dATiQsqx_Fiuwyi-BfCtEc_ga_NlH5cob5MOjLvP2osiXoxik_OAE0Z9SiEjvsKl58ss4hcpKaM2HbPki56qgiknlfq8KnE_ranQzydFTvdp_qYwozkupLO8DhATwvS8SN2qpgpl1xNfBpVNld8siCoxNeM2keYfsDNUaKIR5Fdo7dFO6ecrxKkgu89--De97BoyinpceQpTcoRUrBsh_dg8KSImzil4HzfUuKKnfVR5huRnO9o4"/>
+            </div>
+        </div>
+
+        <!-- Right Side: Registration Form -->
+        <div class="bg-surface p-12 rounded-2xl shadow-sm relative">
+            <div class="absolute -top-6 -right-6 opacity-20 pointer-events-none">
+                <span class="material-symbols-outlined text-[6rem] text-primary">person_add</span>
+            </div>
+            
+            <h2 class="font-headline text-4xl font-extrabold text-on-surface mb-10">Create Account</h2>
+
+            {{ form_start(registrationForm, {'attr': {'class': 'space-y-6', 'novalidate': 'novalidate'}}) }}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        {{ form_label(registrationForm.firstName, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                        {{ form_widget(registrationForm.firstName, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors', 'placeholder': 'Julian'}}) }}
+                        {{ form_errors(registrationForm.firstName) }}
+                    </div>
+                    <div>
+                        {{ form_label(registrationForm.lastName, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                        {{ form_widget(registrationForm.lastName, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors', 'placeholder': 'Thorne'}}) }}
+                        {{ form_errors(registrationForm.lastName) }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors', 'placeholder': 'hello@roast.com'}}) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+
+                <div>
+                    {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors', 'placeholder': '••••••••'}}) }}
+                    {{ form_errors(registrationForm.plainPassword.first) }}
+                </div>
+
+                <div>
+                    {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                    {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors', 'placeholder': '••••••••'}}) }}
+                    {{ form_errors(registrationForm.plainPassword.second) }}
+                </div>
+
+                <button type="submit" class="w-full bg-primary-gradient text-on-primary font-bold py-4 rounded-md mt-4 transition-transform active:scale-[0.98] shadow-sm">
+                    Join The Roast
+                </button>
+            {{ form_end(registrationForm) }}
+
+            <div class="mt-8 text-center border-t border-surface-container pt-8">
+                <p class="text-sm text-on-surface-variant font-body">
+                    Already have an account? 
+                    <a href="{{ path('app_login') }}" class="font-bold text-primary border-b border-primary/30 hover:border-primary transition-colors pb-0.5">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

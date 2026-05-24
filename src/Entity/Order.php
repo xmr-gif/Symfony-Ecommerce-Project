@@ -35,6 +35,12 @@ class Order
     #[ORM\Column(length: 30)]
     private string $status = self::STATUS_PENDING;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $shippingAddress = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $paymentMethod = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -138,6 +144,30 @@ class Order
                 $item->setParentOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getShippingAddress(): ?string
+    {
+        return $this->shippingAddress;
+    }
+
+    public function setShippingAddress(string $shippingAddress): static
+    {
+        $this->shippingAddress = $shippingAddress;
+
+        return $this;
+    }
+
+    public function getPaymentMethod(): ?string
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(string $paymentMethod): static
+    {
+        $this->paymentMethod = $paymentMethod;
 
         return $this;
     }

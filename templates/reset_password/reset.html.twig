@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block content %}
+<section class="min-h-[85vh] bg-surface-container-low flex items-center justify-center py-20 px-8">
+    <div class="max-w-md w-full bg-surface p-12 rounded-2xl shadow-sm relative">
+        <h1 class="font-headline text-3xl font-extrabold text-on-surface mb-6">Reset your password</h1>
+
+        {{ form_start(resetForm, {'attr': {'class': 'space-y-6', 'novalidate': 'novalidate'}}) }}
+            <div>
+                {{ form_label(resetForm.plainPassword.first, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors'}}) }}
+                {{ form_errors(resetForm.plainPassword.first) }}
+            </div>
+            
+            <div>
+                {{ form_label(resetForm.plainPassword.second, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors'}}) }}
+                {{ form_errors(resetForm.plainPassword.second) }}
+            </div>
+
+            <button class="w-full bg-primary-gradient text-on-primary font-bold py-4 rounded-md mt-4 transition-transform active:scale-[0.98] shadow-sm">
+                Reset password
+            </button>
+        {{ form_end(resetForm) }}
+    </div>
+</section>
+{% endblock %}
