@@ -13,7 +13,7 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         /** @var Category $wholeBeanCategory */
-        $wholeBeanCategory = $this->getReference('category_whole-bean');
+        $wholeBeanCategory = $this->getReference('category_whole-bean', Category::class);
 
         $products = [
             [
