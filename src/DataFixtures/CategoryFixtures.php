@@ -39,6 +39,7 @@ class CategoryFixtures extends Fixture
             $category->setDisplayOrder($categoryData['displayOrder']);
 
             $manager->persist($category);
+            $this->addReference('category_' . $category->getSlug(), $category);
         }
 
         $manager->flush();
