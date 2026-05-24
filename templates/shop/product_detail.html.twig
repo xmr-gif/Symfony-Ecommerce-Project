@@ -1,0 +1,191 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ product.name }} - The Editorial Roast{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="max-w-7xl mx-auto px-8 pt-8">
+    <nav class="flex items-center gap-2 text-sm font-body text-on-surface-variant">
+        <a href="{{ path('app_home') }}" class="hover:text-primary transition-colors">Home</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <a href="{{ path('app_shop') }}" class="hover:text-primary transition-colors">Shop</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <span class="text-on-surface font-medium">{{ product.name }}</span>
+    </nav>
+</div>
+
+<!-- Product Detail Section -->
+<section class="max-w-7xl mx-auto px-8 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <!-- Product Image -->
+        <div class="relative aspect-square bg-surface-container-low overflow-hidden rounded-xl">
+            {% if product.imageUrl %}
+            <img alt="{{ product.name }}" class="w-full h-full object-cover" src="{{ product.imageUrl }}"/>
+            {% else %}
+            <div class="w-full h-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-[8rem] text-outline/20">coffee</span>
+            </div>
+            {% endif %}
+            {% if product.badge %}
+            <div class="absolute top-6 left-6 bg-surface/90 backdrop-blur-sm px-4 py-1.5 rounded-sm text-[10px] font-bold tracking-widest uppercase text-primary">{{ product.badge }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="lg:sticky lg:top-32">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2">
+                {% if product.category %}{{ product.category.name }}{% endif %} · {{ product.badge ?? 'Single Origin' }}
+            </p>
+            <h1 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface tracking-tighter mb-4">{{ product.name }}</h1>
+            <div class="text-2xl font-bold text-primary mb-8">${{ product.price|number_format(2, '.', ',') }}</div>
+
+            <p class="text-on-surface-variant font-body leading-relaxed mb-10 max-w-lg">
+                {{ product.description ?? 'A bright, complex profile with notes of roasted almond, wild honey, and a hint of stone fruit. Sourced directly from small-batch farmers, this roast is designed to awaken the senses without the bitterness of traditional commercial blends.' }}
+            </p>
+
+            <!-- Quantity + Add to Cart -->
+            <div class="flex items-center gap-4 mb-8">
+                <div class="flex items-center border border-outline-variant rounded-md">
+                    <button class="px-4 py-3 text-on-surface-variant hover:text-primary transition-colors font-bold">−</button>
+                    <span class="px-4 py-3 text-on-surface font-bold border-x border-outline-variant min-w-[3rem] text-center">1</span>
+                    <button class="px-4 py-3 text-on-surface-variant hover:text-primary transition-colors font-bold">+</button>
+                </div>
+                <button class="flex-grow bg-primary-gradient text-on-primary px-8 py-3.5 rounded-md font-bold transition-transform active:scale-95 hover:shadow-lg">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="flex items-center gap-6 text-sm text-on-surface-variant font-body">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">local_shipping</span>
+                    <span>Free Shipping</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-lg">verified</span>
+                    <span>Plastic-Free</span>
+                </div>
+            </div>
+
+            <!-- Product Meta -->
+            <div class="mt-10 pt-8 border-t border-surface-container space-y-3 text-sm font-body">
+                {% if product.sku %}
+                <div class="flex justify-between text-on-surface-variant">
+                    <span>SKU</span>
+                    <span class="text-on-surface font-medium">{{ product.sku }}</span>
+                </div>
+                {% endif %}
+                <div class="flex justify-between text-on-surface-variant">
+                    <span>Availability</span>
+                    <span class="text-on-surface font-medium">
+                        {% if product.inStock %}
+                            <span class="text-green-700">In Stock</span>
+                        {% else %}
+                            <span class="text-error">Out of Stock</span>
+                        {% endif %}
+                    </span>
+                </div>
+                {% if product.category %}
+                <div class="flex justify-between text-on-surface-variant">
+                    <span>Category</span>
+                    <a href="{{ path('app_products_by_category', {'slug': product.category.slug}) }}" class="text-primary font-medium hover:underline">{{ product.category.name }}</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Brewing Guide Section -->
+<section class="py-20 bg-surface-container-low">
+    <div class="max-w-7xl mx-auto px-8">
+        <div class="text-center mb-16">
+            <h2 class="font-headline text-3xl md:text-4xl font-extrabold text-on-surface tracking-tighter">Brewing the Perfect Ledger</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- French Press -->
+            <div class="bg-surface p-10 rounded-xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <h3 class="text-xl font-bold text-on-surface">The French Press</h3>
+                    <span class="material-symbols-outlined text-primary/30 text-3xl">coffee_maker</span>
+                </div>
+                <p class="text-on-surface-variant font-body text-sm leading-relaxed mb-6">
+                    For those who prefer a full-bodied, textured experience. Use a coarse grind and a 4-minute steep time for optimal extraction of our Morning Roast.
+                </p>
+                <div class="space-y-3 text-sm text-on-surface-variant">
+                    <div class="flex gap-3">
+                        <span class="font-bold text-primary min-w-[1.5rem]">01.</span>
+                        <span>Ratio: 1:15 coffee to water</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-bold text-primary min-w-[1.5rem]">02.</span>
+                        <span>Temp: 200°F (just off boil)</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Chemex -->
+            <div class="bg-surface p-10 rounded-xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <h3 class="text-xl font-bold text-on-surface">The Chemex</h3>
+                    <span class="material-symbols-outlined text-primary/30 text-3xl">filter_alt</span>
+                </div>
+                <p class="text-on-surface-variant font-body text-sm leading-relaxed mb-6">
+                    Perfect for highlighting the bright acidity and floral notes. Use a medium-coarse grind and a slow, circular pour for a clean finish.
+                </p>
+                <div class="space-y-3 text-sm text-on-surface-variant">
+                    <div class="flex gap-3">
+                        <span class="font-bold text-primary min-w-[1.5rem]">01.</span>
+                        <span>Ratio: 1:16 coffee to water</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-bold text-primary min-w-[1.5rem]">02.</span>
+                        <span>Total brew time: 4:30 min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recommended Products -->
+{% if recommended|length > 0 %}
+<section class="py-20 bg-background">
+    <div class="max-w-7xl mx-auto px-8">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <p class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2">Editorial Post-Script</p>
+                <h2 class="font-headline text-3xl md:text-4xl font-extrabold text-on-surface tracking-tighter">Recommended for You</h2>
+            </div>
+            <div class="flex gap-2">
+                <button class="w-10 h-10 border border-outline-variant rounded-full flex items-center justify-center hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span>
+                </button>
+                <button class="w-10 h-10 border border-outline-variant rounded-full flex items-center justify-center hover:border-primary transition-colors">
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {% for item in recommended %}
+            <a href="{{ path('app_product_detail', {'slug': item.slug}) }}" class="group block">
+                <div class="relative aspect-square bg-surface-container-low mb-4 overflow-hidden rounded-lg">
+                    {% if item.imageUrl %}
+                    <img alt="{{ item.name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="{{ item.imageUrl }}"/>
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-outline/30">coffee</span>
+                    </div>
+                    {% endif %}
+                    {% if item.badge %}
+                    <div class="absolute top-3 right-3 bg-surface/90 backdrop-blur-sm px-2 py-0.5 rounded-sm text-[8px] font-bold tracking-widest uppercase text-primary">{{ item.badge }}</div>
+                    {% endif %}
+                </div>
+                <h4 class="text-sm font-bold text-on-surface tracking-tight">{{ item.name }}</h4>
+                <div class="text-sm font-bold text-primary mt-1">${{ item.price|number_format(2, '.', ',') }}</div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

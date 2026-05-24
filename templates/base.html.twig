@@ -105,7 +105,7 @@
             The Editorial Roast
         </a>
         <div class="hidden md:flex items-center space-x-12 font-headline tracking-tight font-bold">
-            <a class="text-[#30332e]/70 dark:text-[#f5f4ef]/70 hover:text-[#745853] transition-colors duration-300" href="{{ path('app_browse_categories') }}">Shop</a>
+            <a class="text-[#30332e]/70 dark:text-[#f5f4ef]/70 hover:text-[#745853] transition-colors duration-300" href="{{ path('app_shop') }}">Shop</a>
             <a class="text-[#30332e]/70 dark:text-[#f5f4ef]/70 hover:text-[#745853] transition-colors duration-300" href="#">Story</a>
             <a class="text-[#30332e]/70 dark:text-[#f5f4ef]/70 hover:text-[#745853] transition-colors duration-300" href="#">Journal</a>
         </div>
@@ -113,9 +113,9 @@
             <a href="{{ path('app_cart') }}" class="scale-95 active:scale-90 transition-transform text-[#4E342E] dark:text-[#f5f4ef]">
                 <span class="material-symbols-outlined">shopping_cart</span>
             </a>
-            <button class="scale-95 active:scale-90 transition-transform text-[#4E342E] dark:text-[#f5f4ef]">
+            <a href="{{ path('app_profile') }}" class="scale-95 active:scale-90 transition-transform text-[#4E342E] dark:text-[#f5f4ef]">
                 <span class="material-symbols-outlined">person</span>
-            </button>
+            </a>
         </div>
     </div>
 </nav>
