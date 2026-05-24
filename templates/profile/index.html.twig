@@ -114,33 +114,60 @@
             <!-- Addresses & Payments Grid -->
             <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Shipping -->
-                <div class="bg-surface p-8 rounded-xl shadow-sm border border-transparent hover:border-outline-variant/30 transition-colors">
+                <div class="bg-surface p-8 rounded-xl shadow-sm border border-transparent hover:border-outline-variant/30 transition-colors h-full flex flex-col">
                     <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mb-6">
                         <span class="material-symbols-outlined text-primary text-xl">home</span>
                     </div>
-                    <h3 class="font-headline text-lg font-bold text-on-surface mb-2">Shipping Address</h3>
-                    {% if user.address %}
-                    <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">{{ user.address }}</p>
-                    {% else %}
-                    <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">No address on file yet.</p>
-                    {% endif %}
-                    <a href="{{ path('app_profile_edit') }}" class="font-label text-xs font-bold text-primary flex items-center gap-1 hover:text-primary-dim transition-colors">
-                        Edit Address <span class="material-symbols-outlined text-sm">chevron_right</span>
-                    </a>
+                    <h3 class="font-headline text-lg font-bold text-on-surface mb-4">Shipping Addresses</h3>
+                    
+                    <div class="space-y-4 flex-grow">
+                        {% for address in user.addresses %}
+                        <div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant/30">
+                            <span class="font-bold text-sm block mb-1">{{ address.label }}</span>
+                            <p class="font-body text-xs text-on-surface-variant leading-relaxed">
+                                {{ address.line1 }}<br>
+                                {{ address.city }}, {{ address.postalCode }}<br>
+                                {{ address.country }}
+                            </p>
+                        </div>
+                        {% else %}
+                        <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">No addresses saved yet.</p>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-outline-variant/20">
+                        <a href="{{ path('app_profile_add_address') }}" class="font-label text-xs font-bold text-primary flex items-center gap-1 hover:text-primary-dim transition-colors">
+                            Add New Address <span class="material-symbols-outlined text-sm">add</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Contact -->
-                <div class="bg-surface p-8 rounded-xl shadow-sm border border-transparent hover:border-outline-variant/30 transition-colors">
+                <!-- Payment Methods -->
+                <div class="bg-surface p-8 rounded-xl shadow-sm border border-transparent hover:border-outline-variant/30 transition-colors h-full flex flex-col">
                     <div class="w-10 h-10 bg-surface-container rounded-full flex items-center justify-center mb-6">
-                        <span class="material-symbols-outlined text-primary text-xl">phone</span>
+                        <span class="material-symbols-outlined text-primary text-xl">credit_card</span>
                     </div>
-                    <h3 class="font-headline text-lg font-bold text-on-surface mb-2">Contact Info</h3>
-                    <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">
-                        {{ user.phone ?? 'No phone number on file.' }}
-                    </p>
-                    <a href="{{ path('app_profile_edit') }}" class="font-label text-xs font-bold text-primary flex items-center gap-1 hover:text-primary-dim transition-colors">
-                        Edit Contact <span class="material-symbols-outlined text-sm">chevron_right</span>
-                    </a>
+                    <h3 class="font-headline text-lg font-bold text-on-surface mb-4">Payment Methods</h3>
+                    
+                    <div class="space-y-4 flex-grow">
+                        {% for card in user.paymentCards %}
+                        <div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant/30 flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-sm tracking-widest block mb-1">{{ card.maskedNumber }}</span>
+                                <span class="font-body text-xs text-on-surface-variant">{{ card.cardholderName }}</span>
+                            </div>
+                            <span class="font-body text-xs font-bold text-on-surface-variant">{{ "%02d"|format(card.expiryMonth) }}/{{ card.expiryYear }}</span>
+                        </div>
+                        {% else %}
+                        <p class="font-body text-sm text-on-surface-variant mb-6 leading-relaxed">No payment methods saved yet.</p>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mt-6 pt-4 border-t border-outline-variant/20">
+                        <a href="{{ path('app_profile_add_card') }}" class="font-label text-xs font-bold text-primary flex items-center gap-1 hover:text-primary-dim transition-colors">
+                            Add Payment Method <span class="material-symbols-outlined text-sm">add</span>
+                        </a>
+                    </div>
                 </div>
             </section>
 

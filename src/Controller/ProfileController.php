@@ -51,4 +51,49 @@ class ProfileController extends AbstractController
             'user' => $user,
         ]);
     }
+    #[Route('/profile/address/add', name: 'app_profile_add_address')]
+    public function addAddress(Request $request): Response
+    {
+        $address = new \App\Entity\Address();
+        $form = $this->createForm(\App\Form\AddressType::class, $address);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $address->setUser($this->getUser());
+            $this->entityManager->persist($address);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Address added successfully.');
+            return $this->redirectToRoute('app_checkout');
+        }
+
+        return $this->render('profile/add_address.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/profile/card/add', name: 'app_profile_add_card')]
+    public function addCard(Request $request): Response
+    {
+        $card = new \App\Entity\PaymentCard();
+        $form = $this->createForm(\App\Form\PaymentCardType::class, $card);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Mask the card number (just keep last 4)
+            $rawNumber = $card->getMaskedNumber();
+            $card->setMaskedNumber('**** **** **** ' . substr($rawNumber, -4));
+            
+            $card->setUser($this->getUser());
+            $this->entityManager->persist($card);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Payment card added successfully.');
+            return $this->redirectToRoute('app_checkout');
+        }
+
+        return $this->render('profile/add_card.html.twig', [
+            'form' => $form,
+        ]);
+    }
 }

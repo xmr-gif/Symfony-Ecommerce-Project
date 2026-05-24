@@ -31,11 +31,6 @@ class ProfileType extends AbstractType
                 'label' => 'Phone',
                 'required' => false,
                 'attr' => ['placeholder' => '+1 (555) 123-4567'],
-            ])
-            ->add('address', TextareaType::class, [
-                'label' => 'Address',
-                'required' => false,
-                'attr' => ['placeholder' => '123 Main Street, New York', 'rows' => 3],
             ]);
     }
 

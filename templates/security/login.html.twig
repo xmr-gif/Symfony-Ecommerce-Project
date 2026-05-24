@@ -45,7 +45,7 @@
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <label for="password" class="block font-label text-[10px] uppercase tracking-[0.2em] text-outline">Password</label>
-                        <a href="#" class="text-[10px] font-bold text-primary hover:text-primary-dim transition-colors">Forgot Password?</a>
+                        <a href="{{ path('app_forgot_password_request') }}" class="text-[10px] font-bold text-primary hover:text-primary-dim transition-colors">Forgot Password?</a>
                     </div>
                     <input type="password" name="_password" id="password" class="w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors" placeholder="••••••••" required>
                 </div>
@@ -62,7 +62,7 @@
             <div class="mt-12 text-center border-t border-surface-container pt-8">
                 <p class="text-sm text-on-surface-variant font-body">
                     New to the ledger? 
-                    <a href="#" class="font-bold text-primary border-b border-primary/30 hover:border-primary transition-colors pb-0.5">Create Account</a>
+                    <a href="{{ path('app_register') }}" class="font-bold text-primary border-b border-primary/30 hover:border-primary transition-colors pb-0.5">Create Account</a>
                 </p>
             </div>
         </div>
