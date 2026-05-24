@@ -26,6 +26,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'tastingNotes' => 'Notes of jasmine, lemon, and peach',
                 'sku' => 'ER-YB-01',
                 'inStock' => true,
+                'origin' => 'Ethiopia',
+                'roastLevel' => 'Light Roast',
             ],
             [
                 'name' => 'Antigua Velvet',
@@ -37,6 +39,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'tastingNotes' => 'Milk chocolate, almond, and brown sugar',
                 'sku' => 'ER-AV-02',
                 'inStock' => true,
+                'origin' => 'Guatemala',
+                'roastLevel' => 'Medium Roast',
             ],
             [
                 'name' => 'Sumatra Dark Moon',
@@ -48,6 +52,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'tastingNotes' => 'Earthy, cedar, and dark chocolate',
                 'sku' => 'ER-SDM-03',
                 'inStock' => true,
+                'origin' => 'Indonesia',
+                'roastLevel' => 'Dark Roast',
             ],
             [
                 'name' => 'Nariño Reserve',
@@ -59,6 +65,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'tastingNotes' => 'Balanced acidity with honey sweetness',
                 'sku' => 'ER-NR-04',
                 'inStock' => true,
+                'origin' => 'Colombia',
+                'roastLevel' => 'Medium Roast',
             ],
             [
                 'name' => 'Cerrado Gold',
@@ -70,6 +78,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'tastingNotes' => 'Nutty profile with low acidity',
                 'sku' => 'ER-CG-05',
                 'inStock' => true,
+                'origin' => 'Brazil',
+                'roastLevel' => 'Medium Roast',
             ],
             [
                 'name' => 'Sidamo Sun',
@@ -81,6 +91,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 'tastingNotes' => 'Fruity, bright, and wine-like',
                 'sku' => 'ER-SS-06',
                 'inStock' => true,
+                'origin' => 'Ethiopia',
+                'roastLevel' => 'Light Roast',
             ],
         ];
 
@@ -95,6 +107,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $product->setTastingNotes($data['tastingNotes']);
             $product->setSku($data['sku']);
             $product->setInStock($data['inStock']);
+            $product->setOrigin($data['origin']);
+            $product->setRoastLevel($data['roastLevel']);
             
             $product->setCategory($wholeBeanCategory);
 

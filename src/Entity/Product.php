@@ -39,6 +39,12 @@ class Product
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $sku = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $origin = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $roastLevel = null;
+
     #[ORM\Column]
     private bool $inStock = true;
 
@@ -167,6 +173,30 @@ class Product
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getOrigin(): ?string
+    {
+        return $this->origin;
+    }
+
+    public function setOrigin(?string $origin): static
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getRoastLevel(): ?string
+    {
+        return $this->roastLevel;
+    }
+
+    public function setRoastLevel(?string $roastLevel): static
+    {
+        $this->roastLevel = $roastLevel;
 
         return $this;
     }

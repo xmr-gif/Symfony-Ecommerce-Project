@@ -20,42 +20,36 @@
 <div class="flex flex-col md:flex-row gap-16 max-w-7xl mx-auto px-8 pb-24">
     <!-- Filter Sidebar -->
     <aside class="w-full md:w-64 flex-shrink-0">
-        <div class="sticky top-32 space-y-12">
+        <form method="GET" action="{{ path('app_shop') }}" class="sticky top-32 space-y-12" id="filter-form">
             <div>
                 <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Origin</h3>
                 <div class="space-y-4">
+                    {% for origin in ['Ethiopia', 'Colombia', 'Guatemala', 'Brazil', 'Indonesia'] %}
                     <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
-                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Ethiopia</span>
+                        <input type="radio" name="origin" value="{{ origin }}" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if currentFilters.origin == origin %}checked{% endif %}>
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant peer-checked:border-primary peer-checked:bg-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant peer-checked:text-on-surface transition-colors">{{ origin }}</span>
                     </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors bg-primary"></div>
-                        <span class="text-sm font-medium text-on-surface group-hover:text-primary transition-colors">Colombia</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
-                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Guatemala</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
-                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Brazil</span>
+                    {% endfor %}
+                    <label class="flex items-center gap-3 cursor-pointer group mt-2 pt-2 border-t border-surface-container">
+                        <input type="radio" name="origin" value="" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if not currentFilters.origin %}checked{% endif %}>
+                        <span class="text-xs font-bold text-outline uppercase tracking-wider hover:text-primary transition-colors">Clear Origin</span>
                     </label>
                 </div>
             </div>
             <div>
                 <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Roast Level</h3>
                 <div class="space-y-4">
+                    {% for roast in ['Light Roast', 'Medium Roast', 'Dark Roast'] %}
                     <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
-                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Light Roast</span>
+                        <input type="radio" name="roastLevel" value="{{ roast }}" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if currentFilters.roastLevel == roast %}checked{% endif %}>
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant peer-checked:border-primary peer-checked:bg-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant peer-checked:text-on-surface transition-colors">{{ roast }}</span>
                     </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
-                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Medium Roast</span>
-                    </label>
-                    <label class="flex items-center gap-3 cursor-pointer group">
-                        <div class="w-4 h-4 rounded-sm border border-outline-variant group-hover:border-primary transition-colors"></div>
-                        <span class="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">Dark Roast</span>
+                    {% endfor %}
+                    <label class="flex items-center gap-3 cursor-pointer group mt-2 pt-2 border-t border-surface-container">
+                        <input type="radio" name="roastLevel" value="" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if not currentFilters.roastLevel %}checked{% endif %}>
+                        <span class="text-xs font-bold text-outline uppercase tracking-wider hover:text-primary transition-colors">Clear Roast</span>
                     </label>
                 </div>
             </div>
@@ -67,7 +61,7 @@
                     <span class="px-4 py-1.5 text-xs font-bold tracking-wide border border-outline-variant text-on-surface-variant rounded-full cursor-pointer hover:border-primary hover:text-primary transition-colors">Espresso</span>
                 </div>
             </div>
-        </div>
+        </form>
     </aside>
 
     <!-- Products Grid -->

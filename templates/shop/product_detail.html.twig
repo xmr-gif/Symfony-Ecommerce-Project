@@ -43,16 +43,11 @@
                 {{ product.description ?? 'A bright, complex profile with notes of roasted almond, wild honey, and a hint of stone fruit. Sourced directly from small-batch farmers, this roast is designed to awaken the senses without the bitterness of traditional commercial blends.' }}
             </p>
 
-            <!-- Quantity + Add to Cart -->
+            <!-- Add to Cart -->
             <div class="flex items-center gap-4 mb-8">
-                <div class="flex items-center border border-outline-variant rounded-md">
-                    <button class="px-4 py-3 text-on-surface-variant hover:text-primary transition-colors font-bold">−</button>
-                    <span class="px-4 py-3 text-on-surface font-bold border-x border-outline-variant min-w-[3rem] text-center">1</span>
-                    <button class="px-4 py-3 text-on-surface-variant hover:text-primary transition-colors font-bold">+</button>
-                </div>
-                <button class="flex-grow bg-primary-gradient text-on-primary px-8 py-3.5 rounded-md font-bold transition-transform active:scale-95 hover:shadow-lg">
+                <a href="{{ path('app_cart_add', {'id': product.id}) }}" class="flex-grow bg-gradient-to-br from-primary to-primary-dim text-on-primary px-8 py-3.5 rounded-md font-bold transition-transform active:scale-95 hover:shadow-lg text-center">
                     Add to Cart
-                </button>
+                </a>
             </div>
 
             <!-- Trust Badges -->
