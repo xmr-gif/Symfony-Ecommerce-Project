@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edit Profile - The Editorial Roast{% endblock %}
+
+{% block content %}
+<div class="bg-surface-container-low min-h-screen pb-20">
+    <div class="max-w-3xl mx-auto px-8 pt-12">
+        <div class="mb-8 flex items-center gap-4">
+            <a href="{{ path('app_profile') }}" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-bold text-sm">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                Back to Profile
+            </a>
+        </div>
+        
+        <div class="bg-surface rounded-2xl p-10 shadow-sm">
+            <div class="mb-10 text-center">
+                <h1 class="font-headline text-4xl font-extrabold text-on-surface mb-2">Account Settings</h1>
+                <p class="font-body text-on-surface-variant">Update your personal details and contact information.</p>
+            </div>
+
+            {{ form_start(form, {'attr': {'class': 'space-y-8', 'novalidate': 'novalidate'}}) }}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        {{ form_label(form.firstName, null, {'label_attr': {'class': 'block text-sm font-bold text-on-surface mb-2'}}) }}
+                        {{ form_widget(form.firstName, {'attr': {'class': 'w-full bg-surface-container-low border border-outline-variant/50 rounded-md px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all'}}) }}
+                        {{ form_errors(form.firstName) }}
+                    </div>
+                    <div>
+                        {{ form_label(form.lastName, null, {'label_attr': {'class': 'block text-sm font-bold text-on-surface mb-2'}}) }}
+                        {{ form_widget(form.lastName, {'attr': {'class': 'w-full bg-surface-container-low border border-outline-variant/50 rounded-md px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all'}}) }}
+                        {{ form_errors(form.lastName) }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form_label(form.email, null, {'label_attr': {'class': 'block text-sm font-bold text-on-surface mb-2'}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'w-full bg-surface-container-low border border-outline-variant/50 rounded-md px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all'}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.phone, null, {'label_attr': {'class': 'block text-sm font-bold text-on-surface mb-2'}}) }}
+                    {{ form_widget(form.phone, {'attr': {'class': 'w-full bg-surface-container-low border border-outline-variant/50 rounded-md px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all'}}) }}
+                    {{ form_errors(form.phone) }}
+                </div>
+
+                <div>
+                    {{ form_label(form.address, null, {'label_attr': {'class': 'block text-sm font-bold text-on-surface mb-2'}}) }}
+                    {{ form_widget(form.address, {'attr': {'class': 'w-full bg-surface-container-low border border-outline-variant/50 rounded-md px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all'}}) }}
+                    {{ form_errors(form.address) }}
+                </div>
+
+                <div class="pt-6 border-t border-outline-variant/30 flex justify-end gap-4">
+                    <a href="{{ path('app_profile') }}" class="px-6 py-3 font-bold text-on-surface-variant hover:text-on-surface transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold px-8 py-3 rounded-md transition-transform active:scale-[0.98] shadow-sm hover:shadow-md">
+                        Save Changes
+                    </button>
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

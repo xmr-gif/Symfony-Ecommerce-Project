@@ -39,6 +39,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $address = null;
 
+
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
