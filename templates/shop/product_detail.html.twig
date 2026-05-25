@@ -44,10 +44,16 @@
             </p>
 
             <!-- Add to Cart -->
-            <div class="flex items-center gap-4 mb-8">
-                <a href="{{ path('app_cart_add', {'id': product.id}) }}" class="flex-grow bg-gradient-to-br from-primary to-primary-dim text-on-primary px-8 py-3.5 rounded-md font-bold transition-transform active:scale-95 hover:shadow-lg text-center">
-                    Add to Cart
-                </a>
+            <div class="mb-8">
+                {{ form_start(form, {'attr': {'class': 'flex items-center gap-4'}}) }}
+                    <div>
+                        {{ form_widget(form.quantity) }}
+                        {{ form_errors(form.quantity) }}
+                    </div>
+                    <div class="flex-grow">
+                        {{ form_widget(form.submit) }}
+                    </div>
+                {{ form_end(form) }}
             </div>
 
             <!-- Trust Badges -->
