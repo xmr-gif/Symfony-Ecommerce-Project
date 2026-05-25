@@ -3,6 +3,7 @@
 namespace App\Cart;
 
 use App\Repository\ProductRepository;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * CartHandler orchestrates cart operations by delegating to a storage strategy.
@@ -10,10 +11,14 @@ use App\Repository\ProductRepository;
  *
  * The CartHandler does not care HOW the cart is stored - it delegates entirely
  * to whichever CartStorageInterface implementation is injected (e.g. SessionCart).
+ *
+ * The #[Autowire] attribute specifies which concrete implementation to use.
+ * To switch to ApiCart, simply change the service reference below.
  */
 class CartHandler
 {
     public function __construct(
+        #[Autowire(service: 'App\Cart\SessionCart')]
         private readonly CartStorageInterface $storage,
         private readonly ProductRepository $productRepository,
     ) {
