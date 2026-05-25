@@ -1,0 +1,101 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Shop - The Editorial Roast{% endblock %}
+
+{% block content %}
+<!-- Page Title -->
+<div class="mb-16 relative pt-12 max-w-7xl mx-auto px-8">
+    <div class="flex items-end gap-4">
+        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tighter text-on-surface font-headline">Our Coffee Collection</h1>
+        <div class="mb-2">
+            <span class="material-symbols-outlined text-primary text-4xl">coffee</span>
+        </div>
+    </div>
+    <p class="mt-4 text-on-surface-variant max-w-lg font-body leading-relaxed">
+        Curated small-batch selections sourced directly from producers.
+        Each bean tells a story of its origin, soil, and the hands that harvested it.
+    </p>
+</div>
+
+<div class="flex flex-col md:flex-row gap-16 max-w-7xl mx-auto px-8 pb-24">
+    <!-- Filter Sidebar -->
+    <aside class="w-full md:w-64 flex-shrink-0">
+        <form method="GET" action="{{ path('app_shop') }}" class="sticky top-32 space-y-12" id="filter-form">
+            <div>
+                <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Origin</h3>
+                <div class="space-y-4">
+                    {% for origin in ['Ethiopia', 'Colombia', 'Guatemala', 'Brazil', 'Indonesia'] %}
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="radio" name="origin" value="{{ origin }}" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if currentFilters.origin == origin %}checked{% endif %}>
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant peer-checked:border-primary peer-checked:bg-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant peer-checked:text-on-surface transition-colors">{{ origin }}</span>
+                    </label>
+                    {% endfor %}
+                    <label class="flex items-center gap-3 cursor-pointer group mt-2 pt-2 border-t border-surface-container">
+                        <input type="radio" name="origin" value="" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if not currentFilters.origin %}checked{% endif %}>
+                        <span class="text-xs font-bold text-outline uppercase tracking-wider hover:text-primary transition-colors">Clear Origin</span>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Roast Level</h3>
+                <div class="space-y-4">
+                    {% for roast in ['Light Roast', 'Medium Roast', 'Dark Roast'] %}
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <input type="radio" name="roastLevel" value="{{ roast }}" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if currentFilters.roastLevel == roast %}checked{% endif %}>
+                        <div class="w-4 h-4 rounded-sm border border-outline-variant peer-checked:border-primary peer-checked:bg-primary transition-colors"></div>
+                        <span class="text-sm font-medium text-on-surface-variant peer-checked:text-on-surface transition-colors">{{ roast }}</span>
+                    </label>
+                    {% endfor %}
+                    <label class="flex items-center gap-3 cursor-pointer group mt-2 pt-2 border-t border-surface-container">
+                        <input type="radio" name="roastLevel" value="" class="hidden peer" onchange="document.getElementById('filter-form').submit()" {% if not currentFilters.roastLevel %}checked{% endif %}>
+                        <span class="text-xs font-bold text-outline uppercase tracking-wider hover:text-primary transition-colors">Clear Roast</span>
+                    </label>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-label text-xs font-bold tracking-[0.2em] text-outline mb-6 uppercase">Grind</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-4 py-1.5 text-xs font-bold tracking-wide border border-primary bg-primary text-on-primary rounded-full cursor-pointer">Whole Bean</span>
+                    <span class="px-4 py-1.5 text-xs font-bold tracking-wide border border-outline-variant text-on-surface-variant rounded-full cursor-pointer hover:border-primary hover:text-primary transition-colors">Filter</span>
+                    <span class="px-4 py-1.5 text-xs font-bold tracking-wide border border-outline-variant text-on-surface-variant rounded-full cursor-pointer hover:border-primary hover:text-primary transition-colors">Espresso</span>
+                </div>
+            </div>
+        </form>
+    </aside>
+
+    <!-- Products Grid -->
+    <div class="flex-grow">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-12">
+            {% for product in products %}
+            <a href="{{ path('app_product_detail', {'slug': product.slug}) }}" class="group cursor-pointer block">
+                <div class="relative aspect-[4/5] bg-surface-container-low mb-6 overflow-hidden">
+                    {% if product.imageUrl %}
+                    <img alt="{{ product.name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="{{ product.imageUrl }}"/>
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-6xl text-outline/30">coffee</span>
+                    </div>
+                    {% endif %}
+                    {% if product.badge %}
+                    <div class="absolute top-4 right-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase text-primary">{{ product.badge }}</div>
+                    {% endif %}
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xl font-bold tracking-tight text-on-surface">{{ product.name }}</h4>
+                    {% if product.tastingNotes %}
+                    <p class="text-sm text-on-surface-variant font-body">{{ product.tastingNotes }}</p>
+                    {% endif %}
+                    <div class="pt-2 text-lg font-bold text-primary">${{ product.price|number_format(2, '.', ',') }}</div>
+                </div>
+            </a>
+            {% else %}
+            <div class="col-span-3 text-center py-20">
+                <span class="material-symbols-outlined text-6xl text-outline/30 mb-4">inventory_2</span>
+                <p class="text-on-surface-variant font-body">No products available yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Your Cart - The Editorial Roast{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-8 pt-12 pb-24">
+    <div class="mb-12">
+        <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2 block">Your Selections</span>
+        <h1 class="font-headline text-5xl md:text-7xl font-extrabold text-on-surface tracking-tighter">The Cart.</h1>
+    </div>
+
+    {% if items|length > 0 %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <!-- Cart Items -->
+        <div class="lg:col-span-2 space-y-0">
+            <!-- Header Row -->
+            <div class="hidden md:grid grid-cols-12 gap-4 pb-4 border-b border-outline-variant/30 text-[10px] uppercase tracking-widest text-outline font-bold">
+                <div class="col-span-6">Product</div>
+                <div class="col-span-2 text-center">Quantity</div>
+                <div class="col-span-2 text-right">Price</div>
+                <div class="col-span-2 text-right">Total</div>
+            </div>
+
+            {% for item in items %}
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center py-8 border-b border-outline-variant/20">
+                <!-- Product Info -->
+                <div class="col-span-6 flex items-center gap-6">
+                    <a href="{{ path('app_product_detail', {'slug': item.product.slug}) }}" class="w-24 h-24 bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+                        {% if item.product.imageUrl %}
+                        <img src="{{ item.product.imageUrl }}" alt="{{ item.product.name }}" class="w-full h-full object-cover"/>
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl text-outline/30">coffee</span>
+                        </div>
+                        {% endif %}
+                    </a>
+                    <div>
+                        <a href="{{ path('app_product_detail', {'slug': item.product.slug}) }}" class="font-bold text-on-surface hover:text-primary transition-colors">{{ item.product.name }}</a>
+                        {% if item.product.tastingNotes %}
+                        <p class="text-xs text-on-surface-variant mt-1">{{ item.product.tastingNotes }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Quantity Controls -->
+                <div class="col-span-2 flex items-center justify-center">
+                    <div class="flex items-center border border-outline-variant rounded-md">
+                        <a href="{{ path('app_cart_decrement', {'id': item.product.id}) }}" class="px-3 py-2 text-on-surface-variant hover:text-primary transition-colors font-bold text-sm">−</a>
+                        <span class="px-3 py-2 text-on-surface font-bold text-sm border-x border-outline-variant min-w-[2.5rem] text-center">{{ item.quantity }}</span>
+                        <a href="{{ path('app_cart_add', {'id': item.product.id}) }}" class="px-3 py-2 text-on-surface-variant hover:text-primary transition-colors font-bold text-sm">+</a>
+                    </div>
+                </div>
+
+                <!-- Unit Price -->
+                <div class="col-span-2 text-right text-on-surface-variant font-body text-sm">
+                    ${{ item.product.price|number_format(2, '.', ',') }}
+                </div>
+
+                <!-- Line Total + Remove -->
+                <div class="col-span-2 flex items-center justify-end gap-4">
+                    <span class="font-bold text-on-surface">${{ (item.product.price * item.quantity)|number_format(2, '.', ',') }}</span>
+                    <a href="{{ path('app_cart_remove', {'id': item.product.id}) }}" class="text-outline hover:text-error transition-colors" title="Remove">
+                        <span class="material-symbols-outlined text-lg">close</span>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <div class="lg:col-span-1">
+            <div class="bg-surface-container-low rounded-2xl p-8 sticky top-32">
+                <h3 class="font-headline text-xl font-bold text-on-surface mb-8">Order Summary</h3>
+
+                <div class="space-y-4 mb-8 text-sm font-body">
+                    <div class="flex justify-between text-on-surface-variant">
+                        <span>Subtotal</span>
+                        <span class="text-on-surface font-medium">${{ total|number_format(2, '.', ',') }}</span>
+                    </div>
+                    <div class="flex justify-between text-on-surface-variant">
+                        <span>Shipping</span>
+                        <span class="text-on-surface font-medium">Free</span>
+                    </div>
+                    <div class="border-t border-outline-variant/30 pt-4 flex justify-between text-on-surface">
+                        <span class="font-bold">Total</span>
+                        <span class="font-bold text-lg">${{ total|number_format(2, '.', ',') }}</span>
+                    </div>
+                </div>
+
+                {% if app.user %}
+                <a href="{{ path('app_checkout') }}" class="block w-full bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold py-4 rounded-md text-center transition-transform active:scale-[0.98] shadow-sm hover:shadow-md">
+                    Place Order
+                </a>
+                {% else %}
+                <a href="{{ path('app_login') }}" class="block w-full bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold py-4 rounded-md text-center transition-transform active:scale-[0.98] shadow-sm hover:shadow-md">
+                    Login to Checkout
+                </a>
+                {% endif %}
+
+                <a href="{{ path('app_shop') }}" class="block text-center mt-6 text-sm font-bold text-primary border-b border-primary/30 pb-0.5 hover:border-primary transition-colors w-fit mx-auto">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Empty Cart -->
+    <div class="text-center py-20">
+        <span class="material-symbols-outlined text-[6rem] text-outline/20 mb-6 block">shopping_cart</span>
+        <h2 class="font-headline text-3xl font-bold text-on-surface mb-4">Your cart is empty</h2>
+        <p class="text-on-surface-variant font-body mb-8 max-w-md mx-auto">It looks like you haven't added any items to your cart yet. Explore our curated collection to find your next favorite roast.</p>
+        <a href="{{ path('app_shop') }}" class="inline-block bg-gradient-to-br from-primary to-primary-dim text-on-primary font-bold px-8 py-4 rounded-md transition-transform active:scale-[0.98] shadow-sm hover:shadow-md">
+            Browse the Collection
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

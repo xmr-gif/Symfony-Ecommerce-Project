@@ -3,23 +3,28 @@
 namespace App\Controller;
 
 use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class EcommerceController extends AbstractController
 {
-    public function __construct(private CategoryRepository $categoryRepository)
-    {
+    public function __construct(
+        private CategoryRepository $categoryRepository,
+        private ProductRepository $productRepository,
+    ) {
     }
 
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
         $categories = $this->categoryRepository->findAllOrderedByDisplay();
+        $featured = $this->productRepository->findFeatured(4);
 
         return $this->render('ecommerce/index.html.twig', [
             'categories' => $categories,
+            'featured' => $featured,
         ]);
     }
 
@@ -42,14 +47,12 @@ class EcommerceController extends AbstractController
             throw $this->createNotFoundException('Category not found');
         }
 
+        $products = $this->productRepository->findByCategory($category);
+
         return $this->render('ecommerce/products_by_category.html.twig', [
             'category' => $category,
+            'products' => $products,
         ]);
     }
 
-    #[Route('/cart', name: 'app_cart')]
-    public function cart(): Response
-    {
-        return $this->render('ecommerce/cart.html.twig');
-    }
 }

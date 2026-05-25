@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Payment Method - The Editorial Roast{% endblock %}
+
+{% block content %}
+<section class="min-h-[85vh] bg-surface-container-low flex items-center justify-center py-20 px-8">
+    <div class="max-w-2xl w-full bg-surface p-12 rounded-2xl shadow-sm relative">
+        <div class="mb-8 flex items-center gap-4">
+            <a href="javascript:history.back()" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-bold text-sm">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                Back
+            </a>
+        </div>
+
+        <h1 class="font-headline text-3xl font-extrabold text-on-surface mb-6">Add Payment Method</h1>
+        <p class="text-sm text-on-surface-variant mb-8">This is a mock payment method for demonstration purposes.</p>
+        
+        {{ form_start(form, {'attr': {'class': 'space-y-6', 'novalidate': 'novalidate'}}) }}
+            
+            <div>
+                {{ form_label(form.cardholderName, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                {{ form_widget(form.cardholderName, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors'}}) }}
+                {{ form_errors(form.cardholderName) }}
+            </div>
+
+            <div>
+                {{ form_label(form.maskedNumber, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                {{ form_widget(form.maskedNumber, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors'}}) }}
+                {{ form_errors(form.maskedNumber) }}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    {{ form_label(form.expiryMonth, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                    {{ form_widget(form.expiryMonth, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors'}}) }}
+                    {{ form_errors(form.expiryMonth) }}
+                </div>
+                <div>
+                    {{ form_label(form.expiryYear, null, {'label_attr': {'class': 'block font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-2'}}) }}
+                    {{ form_widget(form.expiryYear, {'attr': {'class': 'w-full bg-surface-container-low border border-outline/30 focus:border-primary focus:ring-1 focus:ring-primary rounded-md px-4 py-3 text-on-surface font-body transition-colors'}}) }}
+                    {{ form_errors(form.expiryYear) }}
+                </div>
+            </div>
+
+            <button class="w-full bg-primary-gradient text-on-primary font-bold py-4 rounded-md mt-4 transition-transform active:scale-[0.98] shadow-sm">
+                Save Card
+            </button>
+            
+        {{ form_end(form) }}
+    </div>
+</section>
+{% endblock %}
