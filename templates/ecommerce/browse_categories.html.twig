@@ -1,3 +1,4 @@
+{# Etape 1 & 2 modifications remade by Oussama #}
 {% extends "base.html.twig" %}
 
 {% block title %}Browse Categories - The Editorial Roast{% endblock %}
@@ -42,13 +43,13 @@
             
             <!-- Small Category Cards -->
             {% for category in remaining %}
-            <a href="{{ path('app_products_by_category', {'slug': category.slug}) }}" class="md:col-span-4 group bg-surface-container p-8 flex flex-col justify-between hover:bg-surface-container-high transition-colors duration-500">
+            <a href="{{ path('app_products_by_category', {'slug': cat.slug}) }}" class="md:col-span-4 group bg-surface-container p-8 flex flex-col justify-between hover:bg-surface-container-high transition-colors duration-500">
                 <div>
                     <div class="mb-6 w-12 h-12 bg-surface-container-lowest flex items-center justify-center rounded-lg shadow-sm">
                         <span class="material-symbols-outlined text-primary">coffee_maker</span>
                     </div>
-                    <h3 class="text-2xl font-bold tracking-tight mb-2">{{ category.name }}</h3>
-                    <p class="text-sm text-on-surface-variant">{{ category.description }}</p>
+                    <h3 class="text-2xl font-bold tracking-tight mb-2">{{ cat.name }}</h3>
+                    <p class="text-sm text-on-surface-variant">{{ cat.description }}</p>
                 </div>
                 <span class="text-sm font-bold border-b-2 border-primary-container pb-1 inline-block w-fit mt-8 hover:border-primary transition-colors">Explore</span>
             </a>

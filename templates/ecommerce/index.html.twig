@@ -1,3 +1,4 @@
+{# Etape 1 & 2 modifications remade by Oussama #}
 {% extends "base.html.twig" %}
 
 {% block title %}The Editorial Roast | Ethically Sourced, Intentionally Brewed{% endblock %}
@@ -46,13 +47,13 @@
             <p class="font-body text-on-surface-variant mt-2">Organized by brewing intent.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for category in categories %}
-            <a href="{{ path('app_products_by_category', {'slug': category.slug}) }}" class="group bg-surface-container p-10 rounded-xl transition-all hover:bg-surface-container-highest cursor-pointer flex flex-col items-center text-center">
+            {% for cat in categories %}
+            <a href="{{ path('app_products_by_category', {'slug': cat.slug}) }}" class="group bg-surface-container p-10 rounded-xl transition-all hover:bg-surface-container-highest cursor-pointer flex flex-col items-center text-center">
                 <div class="w-20 h-20 mb-6 flex items-center justify-center">
                     <span class="material-symbols-outlined text-5xl text-primary">coffee</span>
                 </div>
-                <h3 class="font-headline text-xl font-bold text-on-surface mb-2">{{ category.name }}</h3>
-                <p class="font-body text-sm text-on-surface-variant">{{ category.description }}</p>
+                <h3 class="font-headline text-xl font-bold text-on-surface mb-2">{{ cat.name }}</h3>
+                <p class="font-body text-sm text-on-surface-variant">{{ cat.description }}</p>
             </a>
             {% endfor %}
         </div>

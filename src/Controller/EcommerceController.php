@@ -10,49 +10,41 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class EcommerceController extends AbstractController
 {
-    public function __construct(
-        private CategoryRepository $categoryRepository,
-        private ProductRepository $productRepository,
-    ) {
-    }
-
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function showHome(CategoryRepository $categoryRepo, ProductRepository $productRepo): Response
     {
-        $categories = $this->categoryRepository->findAllOrderedByDisplay();
-        $featured = $this->productRepository->findFeatured(4);
+        // Re-implemented fetching logic
+        $allCategories = $categoryRepo->findAllOrderedByDisplay();
+        $featuredItems = $productRepo->findFeatured(4);
 
         return $this->render('ecommerce/index.html.twig', [
-            'categories' => $categories,
-            'featured' => $featured,
+            'categories' => $allCategories,
+            'featured' => $featuredItems,
         ]);
     }
 
     #[Route('/categories', name: 'app_browse_categories')]
-    public function browseCategories(): Response
+    public function viewAllCategories(CategoryRepository $categoryRepo): Response
     {
-        $categories = $this->categoryRepository->findAllOrderedByDisplay();
-
         return $this->render('ecommerce/browse_categories.html.twig', [
-            'categories' => $categories,
+            'categories' => $categoryRepo->findAllOrderedByDisplay(),
         ]);
     }
 
     #[Route('/category/{slug}', name: 'app_products_by_category')]
-    public function productsByCategory(string $slug): Response
+    public function viewCategoryProducts(string $slug, CategoryRepository $categoryRepo, ProductRepository $productRepo): Response
     {
-        $category = $this->categoryRepository->findBySlug($slug);
+        $targetCategory = $categoryRepo->findBySlug($slug);
 
-        if (!$category) {
-            throw $this->createNotFoundException('Category not found');
+        if (!$targetCategory) {
+            throw $this->createNotFoundException('The requested category does not exist.');
         }
 
-        $products = $this->productRepository->findByCategory($category);
+        $categoryProducts = $productRepo->findByCategory($targetCategory);
 
         return $this->render('ecommerce/products_by_category.html.twig', [
-            'category' => $category,
-            'products' => $products,
+            'category' => $targetCategory,
+            'products' => $categoryProducts,
         ]);
     }
-
 }
