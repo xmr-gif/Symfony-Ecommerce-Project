@@ -110,6 +110,9 @@
             <a class="text-[#30332e]/70 dark:text-[#f5f4ef]/70 hover:text-[#745853] transition-colors duration-300" href="#">Journal</a>
         </div>
         <div class="flex items-center space-x-6">
+            {% if app.user %}
+                <span class="text-[#4E342E] dark:text-[#f5f4ef] text-sm font-bold">Bienvenue, {{ app.user.firstName }} {{ app.user.lastName }}</span>
+            {% endif %}
             <a href="{{ path('app_cart') }}" class="relative scale-95 active:scale-90 transition-transform text-[#4E342E] dark:text-[#f5f4ef]">
                 <span class="material-symbols-outlined">shopping_cart</span>
                 {% if cartTotalQuantity is defined and cartTotalQuantity > 0 %}
@@ -119,6 +122,11 @@
             <a href="{{ path('app_profile') }}" class="scale-95 active:scale-90 transition-transform text-[#4E342E] dark:text-[#f5f4ef]">
                 <span class="material-symbols-outlined">person</span>
             </a>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="text-[#30332e]/70 hover:text-error transition-colors duration-300 text-sm font-bold">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="text-[#30332e]/70 hover:text-[#745853] transition-colors duration-300 text-sm font-bold">Connexion</a>
+            {% endif %}
         </div>
     </div>
 </nav>
